@@ -40,6 +40,7 @@ SELECT *
 -- Select all data from all movies and, if that movie is being shown in a theater, show the data from the theater.
 
 -- the query below would fail
+--  RIGHT and FULL OUTER JOINs are not currently supported by SQLite3 
 select *
 from movies right join movietheaters 
 on movies.code = movietheaters.movie;
@@ -58,6 +59,10 @@ on movies.code = movietheaters.movie;
 -- VERY IMPORTANT!!!
 
 -- the query below would FAIL due to the NULL value returned by the subquery
+-- for example: 
+-- SELECT * FROM TableA WHERE TableA.Column1 NOT IN (1,NULL) 
+-- IS EQUAL TO
+-- SELECT * FROM TableA WHERE TableA.Column1<>1 AND TableA.Column1<>NULL , since NULL cannot be compared, it will always fail!
 select title 
 from movies
 where code not in ( 
